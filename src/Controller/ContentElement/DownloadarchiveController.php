@@ -34,7 +34,11 @@ class DownloadarchiveController extends AbstractContentElementController
 
     protected function getResponse(FragmentTemplate $template, ContentModel $model, Request $request): Response
     {
-        $this->renderer->render($template, $model, $request, $this->getPageModel());
+        if ($this->isBackendScope($request)) {
+            $this->renderer->renderBackendPreview($template, $model);
+        } else {
+            $this->renderer->render($template, $model, $request, $this->getPageModel());
+        }
 
         return $template->getResponse();
     }

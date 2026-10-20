@@ -25,3 +25,4 @@ $GLOBALS['TL_LANG']['tl_module']['downloadSortingOptions']['tstamp ASC'] = 'Datu
 $GLOBALS['TL_LANG']['tl_module']['downloadSortingOptions']['tstamp DESC'] = 'Datum absteigend';
 $GLOBALS['TL_LANG']['tl_module']['downloadSortingOptions']['title ASC'] = 'Titel aufsteigend';
 $GLOBALS['TL_LANG']['tl_module']['downloadSortingOptions']['title DESC'] = 'Titel absteigend';
+$GLOBALS['TL_LANG']['tl_module']['downloadGroupByArchive'] = ['Nach Archiv gruppieren', 'Die Dateien unter dem Titel ihres Archivs anzeigen.'];

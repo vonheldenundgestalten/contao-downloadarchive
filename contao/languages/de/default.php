@@ -12,3 +12,5 @@ declare(strict_types=1);
 
 $GLOBALS['TL_LANG']['MSC']['downloadarchiveEmpty'] = 'Keine Dateien vorhanden.';
 $GLOBALS['TL_LANG']['CTE']['downloadarchive'] = ['Downloadarchiv', 'Listet die Dateien eines oder mehrerer Downloadarchive auf.'];
+$GLOBALS['TL_LANG']['MSC']['downloadarchiveUnpublished'] = 'unveröffentlicht';
+$GLOBALS['TL_LANG']['MSC']['downloadarchiveProtected'] = 'geschützt';

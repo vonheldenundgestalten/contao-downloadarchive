@@ -25,3 +25,5 @@ $GLOBALS['TL_LANG']['tl_content']['downloadSortingOptions']['tstamp ASC'] = 'Dat
 $GLOBALS['TL_LANG']['tl_content']['downloadSortingOptions']['tstamp DESC'] = 'Date descending';
 $GLOBALS['TL_LANG']['tl_content']['downloadSortingOptions']['title ASC'] = 'Title ascending';
 $GLOBALS['TL_LANG']['tl_content']['downloadSortingOptions']['title DESC'] = 'Title descending';
+$GLOBALS['TL_LANG']['tl_content']['downloadGroupByArchive'] = ['Group by archive', 'Show the files under the title of their archive.'];
+$GLOBALS['TL_LANG']['tl_content']['downloadText'] = ['Intro text', 'Optional text above the list.'];

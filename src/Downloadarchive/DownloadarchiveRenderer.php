@@ -97,14 +97,55 @@ class DownloadarchiveRenderer
 
         $dateFormat = $page?->dateFormat ?: (string) $this->framework->getAdapter(Config::class)->get('dateFormat');
 
-        $template->set('downloads', array_map(
+        $downloads = array_map(
             fn (array $entry): array => $this->compileEntry($entry, $request, $context, $dateFormat),
             $entries,
-        ));
+        );
 
+        $template->set('downloads', $downloads);
+        $template->set('groups', $this->groupByArchive($downloads));
+        $template->set('group_by_archive', (bool) $model->downloadGroupByArchive);
+        $template->set('text', $model instanceof ContentModel ? (string) $model->downloadText : '');
         $template->set('pagination', $pagination);
         $template->set('show_meta', (bool) $model->downloadShowMeta);
         $template->set('hide_date', (bool) $model->downloadHideDate);
+    }
+
+    /**
+     * Back end preview of the content element: all selected archives with all
+     * their files, regardless of publishing and protection, which are marked
+     * instead.
+     */
+    public function renderBackendPreview(FragmentTemplate $template, ContentModel|ModuleModel $model): void
+    {
+        $this->framework->initialize();
+
+        $ids = array_map(intval(...), StringUtil::deserialize($model->downloadarchive, true));
+        $archives = $this->framework->getAdapter(DownloadarchiveModel::class)->findMultipleByIds($ids);
+        $itemAdapter = $this->framework->getAdapter(DownloadarchiveItemModel::class);
+        $preview = [];
+
+        foreach ($archives ?? [] as $archive) {
+            $items = [];
+
+            foreach ($itemAdapter->findBy(['pid=?'], [(int) $archive->id], ['order' => 'sorting']) ?? [] as $item) {
+                $items[] = [
+                    'title' => $item->title,
+                    'path' => $this->getFile($item)?->getPath(),
+                    'published' => $this->isPublished($item->row()),
+                    'protected' => (bool) $item->protected,
+                ];
+            }
+
+            $preview[] = [
+                'title' => $archive->title,
+                'published' => $this->isPublished($archive->row()),
+                'items' => $items,
+            ];
+        }
+
+        $template->set('backend_preview', $preview);
+        $template->set('downloads', []);
     }
 
     /**
@@ -198,12 +239,39 @@ class DownloadarchiveRenderer
             'text' => $item->title,
             'description' => (string) $item->description,
             'archive' => $archive->title,
+            'archive_id' => (int) $archive->id,
             'css_class' => $archive->class,
+            'type' => strtoupper($file->getExtension()),
             'date' => $lastModified ? $this->framework->getAdapter(Date::class)->parse($dateFormat, $lastModified) : '',
+            'timestamp' => $lastModified,
             'size' => $file->getFileSize(),
             'figure' => $this->buildFigure($item, $href, $context),
             'item' => $item->row(),
         ];
+    }
+
+    /**
+     * Groups the compiled downloads by archive, in the order the archives first
+     * appear in the (sorted) list.
+     *
+     * @return list<array{id: int, title: string, css_class: string, downloads: list<array>}>
+     */
+    private function groupByArchive(array $downloads): array
+    {
+        $groups = [];
+
+        foreach ($downloads as $download) {
+            $groups[$download['archive_id']] ??= [
+                'id' => $download['archive_id'],
+                'title' => (string) $download['archive'],
+                'css_class' => (string) $download['css_class'],
+                'downloads' => [],
+            ];
+
+            $groups[$download['archive_id']]['downloads'][] = $download;
+        }
+
+        return array_values($groups);
     }
 
     private function generateDownloadUrl(FilesystemItem $file, Request $request, string $context): string
@@ -255,6 +323,15 @@ class DownloadarchiveRenderer
 
         // Group -1 stands for "guests" (not logged in)
         return $this->security->isGranted(ContaoCorePermissions::MEMBER_IN_GROUPS, StringUtil::deserialize($item->groups, true));
+    }
+
+    private function isPublished(array $row): bool
+    {
+        $time = time();
+
+        return $row['published']
+            && ('' === $row['start'] || $row['start'] <= $time)
+            && ('' === $row['stop'] || $row['stop'] > $time);
     }
 
     private function getFile(DownloadarchiveItemModel $item): FilesystemItem|null

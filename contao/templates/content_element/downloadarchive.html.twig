@@ -1,6 +1,31 @@
 {% extends '@Contao/content_element/_base.html.twig' %}
 {% use '@Contao/component/_downloadarchive.html.twig' %}
+{% trans_default_domain 'contao_default' %}
 
 {% block content %}
-    {{ block('downloadarchive_component') }}
+    {% if backend_preview is defined %}
+        {% block downloadarchive_backend_preview %}
+            {% for archive in backend_preview %}
+                <p><strong>{{ archive.title }}</strong>{% if not archive.published %} <em>({{ 'MSC.downloadarchiveUnpublished'|trans }})</em>{% endif %}</p>
+                {% if archive.items %}
+                    <ul>
+                        {% for item in archive.items %}
+                            <li{% if not item.published %} style="opacity:.5"{% endif %}>
+                                {{ item.title }}
+                                {% if item.path %}<code>{{ item.path }}</code>{% endif %}
+                                {% if item.protected %} <em>({{ 'MSC.downloadarchiveProtected'|trans }})</em>{% endif %}
+                                {% if not item.published %} <em>({{ 'MSC.downloadarchiveUnpublished'|trans }})</em>{% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>{{ 'MSC.downloadarchiveEmpty'|trans }}</p>
+                {% endif %}
+            {% else %}
+                <p>{{ 'MSC.downloadarchiveEmpty'|trans }}</p>
+            {% endfor %}
+        {% endblock %}
+    {% else %}
+        {{ block('downloadarchive_component') }}
+    {% endif %}
 {% endblock %}

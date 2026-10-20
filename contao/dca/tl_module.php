@@ -15,7 +15,7 @@ use FelixPfeiffer\DownloadarchiveBundle\Downloadarchive\DownloadarchiveRenderer;
 
 $GLOBALS['TL_DCA']['tl_module']['palettes'][DownloadarchiveController::TYPE] =
     '{title_legend},name,headline,type'
-    .';{downloadarchive_legend},downloadarchive,downloadSorting,downloadNumberOfItems,perPage'
+    .';{downloadarchive_legend},downloadarchive,downloadSorting,downloadGroupByArchive,downloadNumberOfItems,perPage'
     .';{downloadmeta_legend:hide},downloadShowMeta,downloadHideDate'
     .';{template_legend:hide},customTpl'
     .';{protected_legend:hide},protected'
@@ -52,5 +52,11 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['downloadShowMeta'] = [
 $GLOBALS['TL_DCA']['tl_module']['fields']['downloadHideDate'] = [
     'inputType' => 'checkbox',
     'eval' => ['tl_class' => 'w50'],
+    'sql' => ['type' => 'boolean', 'default' => false],
+];
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['downloadGroupByArchive'] = [
+    'inputType' => 'checkbox',
+    'eval' => ['tl_class' => 'w50 m12'],
     'sql' => ['type' => 'boolean', 'default' => false],
 ];

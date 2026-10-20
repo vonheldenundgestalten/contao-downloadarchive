@@ -14,8 +14,8 @@ use FelixPfeiffer\DownloadarchiveBundle\Controller\ContentElement\Downloadarchiv
 use FelixPfeiffer\DownloadarchiveBundle\Downloadarchive\DownloadarchiveRenderer;
 
 $GLOBALS['TL_DCA']['tl_content']['palettes'][DownloadarchiveController::TYPE] =
-    '{type_legend},type,headline'
-    .';{downloadarchive_legend},downloadarchive,downloadSorting,downloadNumberOfItems,perPage'
+    '{type_legend},type,headline;{text_legend},downloadText'
+    .';{downloadarchive_legend},downloadarchive,downloadSorting,downloadGroupByArchive,downloadNumberOfItems,perPage'
     .';{downloadmeta_legend:hide},downloadShowMeta,downloadHideDate'
     .';{template_legend:hide},customTpl'
     .';{protected_legend:hide},protected'
@@ -54,4 +54,19 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['downloadHideDate'] = [
     'inputType' => 'checkbox',
     'eval' => ['tl_class' => 'w50'],
     'sql' => ['type' => 'boolean', 'default' => false],
+];
+
+$GLOBALS['TL_DCA']['tl_content']['fields']['downloadGroupByArchive'] = [
+    'inputType' => 'checkbox',
+    'eval' => ['tl_class' => 'w50 m12'],
+    'sql' => ['type' => 'boolean', 'default' => false],
+];
+
+// Optional intro text above the list (core's "text" field is mandatory)
+$GLOBALS['TL_DCA']['tl_content']['fields']['downloadText'] = [
+    'search' => true,
+    'inputType' => 'textarea',
+    'eval' => ['rte' => 'tinyMCE', 'basicEntities' => true, 'helpwizard' => true, 'tl_class' => 'clr'],
+    'explanation' => 'insertTags',
+    'sql' => 'mediumtext NULL',
 ];
