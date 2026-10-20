@@ -1,0 +1,19 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        bind:
+            $filesStorage: '@contao.filesystem.virtual.files'
+
+    FelixPfeiffer\DownloadarchiveBundle\:
+        resource: ../src/
+        exclude:
+            - ../src/ContaoManager/
+            - ../src/FelixPfeifferDownloadarchiveBundle.php
+            - ../src/Model/
+
+    FelixPfeiffer\DownloadarchiveBundle\Controller\:
+        resource: ../src/Controller/
+        public: true
+        tags:
+            - controller.service_arguments

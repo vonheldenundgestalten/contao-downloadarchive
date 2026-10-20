@@ -1,9 +1,63 @@
-ContaoDownloadarchive
-=====================
+# Contao Download Archive
 
-The downloadarchive extension offers the possibility to organize files from the file system in differnet archives.
+Organize files from the file manager in download archives. Each file gets its
+own title, description, optional preview image and visibility (member groups,
+guests, publish dates), independent of the file meta data.
 
-Each archive can get his own visibility for gustes and/or registered members.
+The files are listed by the **Download archive** content element or front end
+module, which can combine several archives, sort them together, limit and
+paginate the list.
 
-You can add a title, description and preview image for each file of an 
-archive and define what action should be used when an image is clicked.
+Requires Contao 5.7 and PHP 8.3.
+
+## Installation
+
+```bash
+composer require felixpfeiffer/contao-downloadarchive
+```
+
+Then run `vendor/bin/contao-console contao:migrate` (or the Contao Manager's
+database update).
+
+## Templates
+
+| Template | Purpose |
+| --- | --- |
+| `content_element/downloadarchive.html.twig` | Content element |
+| `frontend_module/downloadarchive.html.twig` | Front end module |
+| `component/_downloadarchive.html.twig` | The list itself, shared by both |
+
+Override them in the template studio or in your own `templates/` folder. Each
+entry of `downloads` contains `href`, `file` (a `FilesystemItem`), `text`,
+`description`, `archive`, `css_class`, `date`, `size`, `figure` and the raw
+`item` row; see the component for details.
+
+## Permissions
+
+- Back end users see the archives selected in their user or group settings
+  ("Download archive permissions").
+- Creating and deleting archives and files is controlled by the table
+  permissions of Contao 5.7 (`tl_downloadarchive`, `tl_downloadarchiveitems`).
+- In the front end, protected files are only listed and downloadable for the
+  selected member groups; "Guests" stands for visitors who are not logged in.
+
+Files outside of public folders are served through signed download URLs, so a
+protected file cannot be downloaded by guessing its path.
+
+## Upgrading from the Contao 3/4 version
+
+The database migrations take care of:
+
+- the very old `tl_downloadarchiv*` table and `downloadarchiv` field names,
+- converting the checkbox columns to boolean columns,
+- "Show to guests only" on files, which becomes the "Guests" member group,
+- the archive permissions (`downloadarchivep`), which move to the table
+  permissions.
+
+Breaking changes:
+
+- The `ce_downloadarchive` / `mod_downloadarchive` PHP templates are replaced
+  by the Twig templates above; custom templates have to be rewritten.
+- The image margin and floating options of the preview image were removed
+  (use CSS). The obsolete columns are dropped by the database update.
+- Download links no longer use `?file=`; old direct links stop working.

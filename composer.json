@@ -1,37 +1,60 @@
 {
-	"name":"felixpfeiffer/contao-downloadarchive",
-	"description":"Define downloadarchives with permission for users to download single files.",
-	"keywords":["download","archive","permission"],
-	"type":"contao-module",
-	"homepage":"http://www.felixpfeiffer.com/",
-	"license":"LGPL-3.0+",
-	"authors":[
-		{
-			"name":"Felix Pfeiffer",
-			"homepage":"http://www.felixpfeiffer.com/",
-			"role":"Developer"
-		}
-	],
-	"support":{
-		"issues":"https://github.com/felixpfeiffer/contao-downloadarchive/issues",
-		"source":"https://github.com/felixpfeiffer/contao-downloadarchive"
-	},
-	"require":{
-		"php":">=5.3",
-		"contao/core":">=3.2,<4",
-		"contao-community-alliance/composer-plugin":"~2.0"
-	},
-	"autoload":{
-		"classmap":[""]
-	},
-	"replace":{
-		"contao-legacy/downloadarchive":"*"
-	},
-	"extra":{
-		"contao":{
-			"sources":{
-				"":"system/modules/downloadarchive"
-			}
-		}
-	}
+    "name": "felixpfeiffer/contao-downloadarchive",
+    "type": "contao-bundle",
+    "description": "Define download archives with permissions for users to download single files.",
+    "keywords": [
+        "contao",
+        "download",
+        "archive",
+        "permission"
+    ],
+    "homepage": "https://github.com/felixpfeiffer/contao-downloadarchive",
+    "license": "LGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Felix Pfeiffer",
+            "homepage": "http://www.felixpfeiffer.com/",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/felixpfeiffer/contao-downloadarchive/issues",
+        "source": "https://github.com/felixpfeiffer/contao-downloadarchive"
+    },
+    "require": {
+        "php": "^8.3",
+        "contao/core-bundle": "^5.7",
+        "doctrine/dbal": "^3.7 || ^4.3",
+        "symfony/config": "^7.4",
+        "symfony/dependency-injection": "^7.4",
+        "symfony/http-foundation": "^7.4",
+        "symfony/http-kernel": "^7.4",
+        "symfony/security-bundle": "^7.4",
+        "symfony/uid": "^7.4"
+    },
+    "require-dev": {
+        "contao/manager-plugin": "^2.0"
+    },
+    "conflict": {
+        "contao/manager-plugin": "<2.0 || >=3.0"
+    },
+    "replace": {
+        "contao-legacy/downloadarchive": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "FelixPfeiffer\\DownloadarchiveBundle\\": "src/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "contao-components/installer": true,
+            "contao/manager-plugin": true,
+            "php-http/discovery": false
+        },
+        "sort-packages": true
+    },
+    "extra": {
+        "contao-manager-plugin": "FelixPfeiffer\\DownloadarchiveBundle\\ContaoManager\\Plugin"
+    }
 }

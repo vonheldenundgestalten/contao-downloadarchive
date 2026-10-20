@@ -1,0 +1,78 @@
+{#
+    Download archive list, shared by content_element/downloadarchive and
+    frontend_module/downloadarchive.
+
+        <ul class="downloadarchive-list">
+            <li class="downloadarchive-item ext-pdf">
+                <figure>…</figure>
+                <a href="…" type="application/pdf">Price list</a>
+                <span class="downloadarchive-meta">01.02.2026 | 1.2 MiB</span>
+                <div class="rte description">…</div>
+            </li>
+        </ul>
+
+    Mandatory variables:
+        @var list<array> downloads
+            @var string href
+            @var \Contao\CoreBundle\Filesystem\FilesystemItem file
+            @var string text         item title, used as link text
+            @var string description  rich text
+            @var string archive      archive title
+            @var string css_class    CSS class of the archive
+            @var string date         last modification date, formatted
+            @var int size            file size in bytes
+            @var \Contao\CoreBundle\Image\Studio\Figure|null figure
+            @var array item          raw tl_downloadarchiveitems row
+
+    Optional variables:
+        @var bool show_meta
+        @var bool hide_date
+        @var \Contao\CoreBundle\Pagination\PaginationInterface|null pagination
+#}
+
+{% trans_default_domain 'contao_default' %}
+{% use '@Contao/component/_download.html.twig' %}
+{% use '@Contao/component/_figure.html.twig' %}
+{% use '@Contao/component/_rich_text.html.twig' %}
+{% use '@Contao/component/_pagination.html.twig' %}
+
+{% block downloadarchive_component %}
+    {% if downloads|default %}
+        <ul class="downloadarchive-list">
+            {% for download in downloads %}
+                {% set downloadarchive_item_attributes = attrs()
+                    .addClass(['downloadarchive-item', download.css_class, "ext-#{download.file.extension(true)}"])
+                %}
+                <li{{ downloadarchive_item_attributes }}>
+                    {% block downloadarchive_item %}
+                        {% if download.figure %}
+                            {% with {figure: download.figure} %}{{ block('figure_component') }}{% endwith %}
+                        {% endif %}
+
+                        {# Scoped, so the link attributes do not leak into the next item #}
+                        {% with {download} %}{{ block('download_component') }}{% endwith %}
+
+                        {% if show_meta|default %}
+                            {% block downloadarchive_meta %}
+                                <span class="downloadarchive-meta">
+                                    {%- if not hide_date|default and download.date %}{{ download.date }} | {% endif -%}
+                                    {{ download.size|format_bytes }}
+                                </span>
+                            {% endblock %}
+                        {% endif %}
+
+                        {% if download.description %}
+                            {% with {text: download.description, attributes: attrs().addClass('description')} %}{{ block('rich_text_component') }}{% endwith %}
+                        {% endif %}
+                    {% endblock %}
+                </li>
+            {% endfor %}
+        </ul>
+
+        {{ block('pagination_component') }}
+    {% else %}
+        {% block downloadarchive_empty %}
+            <p class="downloadarchive-empty">{{ 'MSC.downloadarchiveEmpty'|trans }}</p>
+        {% endblock %}
+    {% endif %}
+{% endblock %}
