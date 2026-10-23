@@ -10,11 +10,21 @@ paginate the list.
 
 Requires Contao 5.7 and PHP 8.3.
 
+Maintained by von Helden und Gestalten. This is a fork of
+[felixpfeiffer/contao-downloadarchive](https://github.com/felixpfeiffer/contao-downloadarchive)
+by Felix Pfeiffer, rewritten for Contao 5.7.
+
 ## Installation
 
 ```bash
-composer require felixpfeiffer/contao-downloadarchive
+composer require vonheldenundgestalten/contao-downloadarchive
 ```
+
+The package replaces `felixpfeiffer/contao-downloadarchive`, so switching only
+needs the new `require`; remove the old one from your `composer.json`. The
+namespace changed from `FelixPfeiffer\DownloadarchiveBundle` to
+`VHUG\DownloadarchiveBundle`; tables, fields, element types and templates stay
+the same.
 
 Then run `vendor/bin/contao-console contao:migrate` (or the Contao Manager's
 database update).

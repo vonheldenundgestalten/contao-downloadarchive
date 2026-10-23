@@ -3,14 +3,15 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the felixpfeiffer/contao-downloadarchive package.
+ * This file is part of the vonheldenundgestalten/contao-downloadarchive package.
  *
- * (c) Felix Pfeiffer
+ * (c) von Helden und Gestalten
+ * (c) Felix Pfeiffer (original author)
  *
  * @license LGPL-3.0-or-later
  */
 
-namespace FelixPfeiffer\DownloadarchiveBundle\Model;
+namespace VHUG\DownloadarchiveBundle\Model;
 
 use Contao\Date;
 use Contao\Model;

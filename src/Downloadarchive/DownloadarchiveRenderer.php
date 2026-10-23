@@ -3,14 +3,15 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the felixpfeiffer/contao-downloadarchive package.
+ * This file is part of the vonheldenundgestalten/contao-downloadarchive package.
  *
- * (c) Felix Pfeiffer
+ * (c) von Helden und Gestalten
+ * (c) Felix Pfeiffer (original author)
  *
  * @license LGPL-3.0-or-later
  */
 
-namespace FelixPfeiffer\DownloadarchiveBundle\Downloadarchive;
+namespace VHUG\DownloadarchiveBundle\Downloadarchive;
 
 use Contao\Config;
 use Contao\ContentModel;
@@ -33,14 +34,14 @@ use Contao\Date;
 use Contao\ModuleModel;
 use Contao\PageModel;
 use Contao\StringUtil;
-use FelixPfeiffer\DownloadarchiveBundle\Model\DownloadarchiveItemModel;
-use FelixPfeiffer\DownloadarchiveBundle\Model\DownloadarchiveModel;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Uid\Uuid;
+use VHUG\DownloadarchiveBundle\Model\DownloadarchiveItemModel;
+use VHUG\DownloadarchiveBundle\Model\DownloadarchiveModel;
 
 /**
  * Builds the download list of the content element and the front end module,

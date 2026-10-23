@@ -3,14 +3,15 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the felixpfeiffer/contao-downloadarchive package.
+ * This file is part of the vonheldenundgestalten/contao-downloadarchive package.
  *
- * (c) Felix Pfeiffer
+ * (c) von Helden und Gestalten
+ * (c) Felix Pfeiffer (original author)
  *
  * @license LGPL-3.0-or-later
  */
 
-namespace FelixPfeiffer\DownloadarchiveBundle\Security\Voter;
+namespace VHUG\DownloadarchiveBundle\Security\Voter;
 
 use Contao\CoreBundle\Security\ContaoCorePermissions;
 use Contao\CoreBundle\Security\DataContainer\CreateAction;
@@ -18,9 +19,9 @@ use Contao\CoreBundle\Security\DataContainer\DeleteAction;
 use Contao\CoreBundle\Security\DataContainer\ReadAction;
 use Contao\CoreBundle\Security\DataContainer\UpdateAction;
 use Contao\CoreBundle\Security\Voter\DataContainer\AbstractDataContainerVoter;
-use FelixPfeiffer\DownloadarchiveBundle\Security\DownloadarchivePermissions;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
+use VHUG\DownloadarchiveBundle\Security\DownloadarchivePermissions;
 
 /**
  * Files can only be managed in archives of the user's archive mounts; moving a

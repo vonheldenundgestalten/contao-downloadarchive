@@ -5,14 +5,14 @@ services:
         bind:
             $filesStorage: '@contao.filesystem.virtual.files'
 
-    FelixPfeiffer\DownloadarchiveBundle\:
+    VHUG\DownloadarchiveBundle\:
         resource: ../src/
         exclude:
             - ../src/ContaoManager/
-            - ../src/FelixPfeifferDownloadarchiveBundle.php
+            - ../src/VhugDownloadarchiveBundle.php
             - ../src/Model/
 
-    FelixPfeiffer\DownloadarchiveBundle\Controller\:
+    VHUG\DownloadarchiveBundle\Controller\:
         resource: ../src/Controller/
         public: true
         tags:

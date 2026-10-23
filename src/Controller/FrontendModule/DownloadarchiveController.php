@@ -3,22 +3,23 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the felixpfeiffer/contao-downloadarchive package.
+ * This file is part of the vonheldenundgestalten/contao-downloadarchive package.
  *
- * (c) Felix Pfeiffer
+ * (c) von Helden und Gestalten
+ * (c) Felix Pfeiffer (original author)
  *
  * @license LGPL-3.0-or-later
  */
 
-namespace FelixPfeiffer\DownloadarchiveBundle\Controller\FrontendModule;
+namespace VHUG\DownloadarchiveBundle\Controller\FrontendModule;
 
 use Contao\CoreBundle\Controller\FrontendModule\AbstractFrontendModuleController;
 use Contao\CoreBundle\DependencyInjection\Attribute\AsFrontendModule;
 use Contao\CoreBundle\Twig\FragmentTemplate;
 use Contao\ModuleModel;
-use FelixPfeiffer\DownloadarchiveBundle\Downloadarchive\DownloadarchiveRenderer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use VHUG\DownloadarchiveBundle\Downloadarchive\DownloadarchiveRenderer;
 
 /**
  * Lists the files of one or more download archives.

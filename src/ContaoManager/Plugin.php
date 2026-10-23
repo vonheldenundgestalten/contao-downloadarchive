@@ -3,22 +3,23 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the felixpfeiffer/contao-downloadarchive package.
+ * This file is part of the vonheldenundgestalten/contao-downloadarchive package.
  *
- * (c) Felix Pfeiffer
+ * (c) von Helden und Gestalten
+ * (c) Felix Pfeiffer (original author)
  *
  * @license LGPL-3.0-or-later
  */
 
-namespace FelixPfeiffer\DownloadarchiveBundle\ContaoManager;
+namespace VHUG\DownloadarchiveBundle\ContaoManager;
 
 use Contao\CoreBundle\ContaoCoreBundle;
 use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
 use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 use Contao\ManagerPlugin\Config\ConfigPluginInterface;
-use FelixPfeiffer\DownloadarchiveBundle\FelixPfeifferDownloadarchiveBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use VHUG\DownloadarchiveBundle\VhugDownloadarchiveBundle;
 
 /**
  * @internal
@@ -28,14 +29,17 @@ class Plugin implements BundlePluginInterface, ConfigPluginInterface
     public function getBundles(ParserInterface $parser): array
     {
         return [
-            BundleConfig::create(FelixPfeifferDownloadarchiveBundle::class)
+            BundleConfig::create(VhugDownloadarchiveBundle::class)
                 ->setLoadAfter([ContaoCoreBundle::class])
-                ->setReplace(['downloadarchive']),
+                ->setReplace([
+                    'downloadarchive',
+                    'FelixPfeiffer\DownloadarchiveBundle\FelixPfeifferDownloadarchiveBundle',
+                ]),
         ];
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader, array $managerConfig): void
     {
-        $loader->load('@FelixPfeifferDownloadarchiveBundle/config/services.yaml');
+        $loader->load('@VhugDownloadarchiveBundle/config/services.yaml');
     }
 }

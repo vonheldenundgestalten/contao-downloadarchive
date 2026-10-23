@@ -3,15 +3,16 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the felixpfeiffer/contao-downloadarchive package.
+ * This file is part of the vonheldenundgestalten/contao-downloadarchive package.
  *
- * (c) Felix Pfeiffer
+ * (c) von Helden und Gestalten
+ * (c) Felix Pfeiffer (original author)
  *
  * @license LGPL-3.0-or-later
  */
 
-use FelixPfeiffer\DownloadarchiveBundle\Controller\ContentElement\DownloadarchiveController;
-use FelixPfeiffer\DownloadarchiveBundle\Downloadarchive\DownloadarchiveRenderer;
+use VHUG\DownloadarchiveBundle\Controller\ContentElement\DownloadarchiveController;
+use VHUG\DownloadarchiveBundle\Downloadarchive\DownloadarchiveRenderer;
 
 $GLOBALS['TL_DCA']['tl_content']['palettes'][DownloadarchiveController::TYPE] =
     '{type_legend},type,headline;{text_legend},downloadText'

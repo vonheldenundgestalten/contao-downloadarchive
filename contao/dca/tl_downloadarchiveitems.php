@@ -3,20 +3,21 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the felixpfeiffer/contao-downloadarchive package.
+ * This file is part of the vonheldenundgestalten/contao-downloadarchive package.
  *
- * (c) Felix Pfeiffer
+ * (c) von Helden und Gestalten
+ * (c) Felix Pfeiffer (original author)
  *
  * @license LGPL-3.0-or-later
  */
 
 use Contao\DataContainer;
 use Contao\DC_Table;
-use FelixPfeiffer\DownloadarchiveBundle\Model\DownloadarchiveItemModel;
+use VHUG\DownloadarchiveBundle\Model\DownloadarchiveItemModel;
 
 /*
  * The files of a download archive. The list label and the member group options
- * come from FelixPfeiffer\DownloadarchiveBundle\EventListener\DataContainer\*.
+ * come from VHUG\DownloadarchiveBundle\EventListener\DataContainer\*.
  */
 $GLOBALS['TL_DCA']['tl_downloadarchiveitems'] = [
     'config' => [
